@@ -1,0 +1,7 @@
+SCALE         300.0
+WIDTH        1000
+HEIGHT       1000
+OCTAVES         8
+PERSISTENCE     0.55
+LACUNARITY      2.0
+FREQUENCY       2.0
