@@ -1,17 +1,18 @@
 // {{{ Includes
+#define cimg_display 0
 #include <iostream>
 #include "noise/noise.h"
 #include <vector>
 #include "CImg.h"
 // }}}
 // {{{ Globals
-const static int WIDTH = 128;
-const static int HEIGHT = 128;
+const static int WIDTH = 2048;
+const static int HEIGHT = 2048;
 const static int GENERATIONS = 15;
 const static double CHANCE_TO_SPAWN = 0.45;
 static std::vector<int> B = {5, 6, 7, 8};
 static std::vector<int> S = {3, 4, 5, 6, 7, 8};
-const static int SCALE = 8;
+const static int SCALE = 2;
 const static int OCTAVES = 5;
 const static double PERSISTENCE = 0.55;
 const static double LACUNARITY = 2.0;
@@ -113,6 +114,22 @@ int main(){
 			}
 		}
 
+		for (int i = 0; i < SCALE * HEIGHT; i+=SCALE){
+			for (int j = 0; j < SCALE * WIDTH; j+=SCALE){
+				setColor(DATA[i / SCALE][j / SCALE]*255);
+				for (int k = 0; k < SCALE; k++){
+					for (int l = 0; l < SCALE; l++){
+						img.draw_point(j+k, i+l, 0, color, 1);
+					}
+				}
+			}
+		}
+
+		char filename[50];
+		sprintf(filename, "%d.jpg", i+1);
+		printf("%s\n", filename);
+		img.save(filename);
+
 		for (int j = 0; j < HEIGHT; j++){
 			for (int k = 0; k < WIDTH; k++){
 				DATA[j][k] = NEW_DATA[j][k];
@@ -121,18 +138,19 @@ int main(){
 		}
 	}
 
-	for (int i = 0; i < SCALE * HEIGHT; i+=SCALE){
-		for (int j = 0; j < SCALE * WIDTH; j+=SCALE){
-			setColor(DATA[i / SCALE][j / SCALE]*255);
-			for (int k = 0; k < SCALE; k++){
-				for (int l = 0; l < SCALE; l++){
-					img.draw_point(j+k, i+l, 0, color, 1);
-				}
-			}
-		}
-	}
+	//for (int i = 0; i < SCALE * HEIGHT; i+=SCALE){
+		//for (int j = 0; j < SCALE * WIDTH; j+=SCALE){
+			//setColor(DATA[i / SCALE][j / SCALE]*255);
+			//for (int k = 0; k < SCALE; k++){
+				//for (int l = 0; l < SCALE; l++){
+					//img.draw_point(j+k, i+l, 0, color, 1);
+				//}
+			//}
+		//}
+	//}
 
-	img.display("Cellular Automata");
+	//img.display("Cellular Automata");
+	//img.save("1.jpg");
 
 	return 0;
 }

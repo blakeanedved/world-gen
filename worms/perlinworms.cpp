@@ -1,5 +1,5 @@
 // {{{ Defines
-#define cimg_display 1
+#define cimg_display 0
 #include <iostream>
 #include "CImg.h"
 #include "noise/noise.h"
@@ -77,8 +77,8 @@ int main(){
 		}
 	}
 	
-	img.display("");
-	//img.save_jpeg("worms.jpg");
+	//img.display("");
+	img.save_jpeg("worms.jpg");
 
 	return 0;
 }
